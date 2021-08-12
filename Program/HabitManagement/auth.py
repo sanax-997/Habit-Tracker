@@ -1,7 +1,7 @@
 #A blueprint is an object that allows defining application functions without requiring an application object ahead of time.
 #The authentification and the normal views should be seperated
-from flask import Blueprint, render_template, request, flash, jsonify
-import os
+from flask import Blueprint, render_template, request, flash, json, jsonify
+import os.path
 
 auth = Blueprint('auth', __name__)
 
@@ -33,12 +33,15 @@ def register():
             flash('The passwords do not match!', category="error")
         elif len(password1) < 4:
             flash('The password must be at least 4 characters!', category="error")
-        elif 
+        #elif 
 
         else:
             flash('Account created!', category="success")
-            user_information = {"email" : email, "username": UserName, "password" : password1}
-            jsonify(user_information)
-            print(user_information)
 
-    return render_template("register.html")
+            registration_data = {"email" : email, "username": UserName, "password" : password1}
+            jsonStr = json.dumps(registration_data, indent = 4)
+
+            with open("Data/User_data.json", "w") as user_data:
+                user_data.write(jsonStr)
+
+    return  render_template("register.html")

@@ -1,5 +1,6 @@
 from flask import Flask
 
+
 def create_app():
     #The create_app function initializes the Flask framework
 
