@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_login import LoginManager
 
 
 def create_app():
@@ -18,15 +17,5 @@ def create_app():
     #This code registers the blueprints, with a specified URL prefix
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
-    from .User import User
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.get(user_id)
 
     return app
