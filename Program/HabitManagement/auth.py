@@ -2,19 +2,10 @@
 #The authentification and the normal views should be seperated
 from flask import Blueprint, render_template, request, flash, json, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from .User import User
 
 from os import path, listdir
 
 auth = Blueprint('auth', __name__)
-
-def user_load_json(username):
-    with open(f"Data/{username}.json", "r") as user_data:
-        data = json.loads(user_data.read())
-        
-    user = User(data["id"],data["email"],data["username"], data["password"])
-    return user
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,14 +49,19 @@ def register():
 
         if len(email) < 4:
             flash('Email must be greater than 3 characters!', category="error")
+            
         elif len(username) < 1:
             flash('Username must be at least 1 character!', category="error")
+
         elif password1 != password2:
             flash('The passwords do not match!', category="error")
+
         elif len(password1) < 4:
             flash('The password must be at least 4 characters!', category="error")
+
         elif path.isfile(f"./Data/{username}.json"):
             flash('This username already exists!', category="error")
+
         elif len(listdir('./Data')) != 0:
             for filename in listdir('./Data'):
                 with open(f"./Data/{filename}") as currentFile:
