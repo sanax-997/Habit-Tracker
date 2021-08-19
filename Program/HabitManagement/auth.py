@@ -2,7 +2,7 @@
 #The authentification and the normal views should be seperated
 from flask import Blueprint, render_template, request, flash, json, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from HabitManagement import settings
 from os import path, listdir
 
 auth = Blueprint('auth', __name__)
@@ -19,6 +19,7 @@ def login():
 
             if check_password_hash(data["password"], password):
                 flash('Loged in successfully', category="success")
+                settings.login_status = True
                 return redirect(url_for('views.home'))
             else:
                 flash('The password is wrong!', category="error")
@@ -30,6 +31,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    settings.login_status = False
     return redirect(url_for('auth.login'))
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -71,11 +73,13 @@ def register():
                     else:
                         flash('Account created!', category="success")
                         registration(email, username, password1)
+                        settings.login_status = True
                         return redirect(url_for('views.home'))
                         
         else:
             flash('Account created!', category="success")
             registration(email, username, password1)
+            settings.login_status = True
             return redirect(url_for('views.home'))
             
     return  render_template("register.html")

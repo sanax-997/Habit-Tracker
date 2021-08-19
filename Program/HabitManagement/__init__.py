@@ -13,9 +13,12 @@ def create_app():
     #These are blueprints imported from the auth and views file. 
     from .views import views
     from .auth import auth
+    from HabitManagement import settings
 
     #This code registers the blueprints, with a specified URL prefix
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+
+    settings.init_login_status()
 
     return app
