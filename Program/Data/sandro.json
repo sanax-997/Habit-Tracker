@@ -1,5 +1,39 @@
 {
-    "email": "schweiss.sandro@hotmail.de",
-    "password": "sha256$d2gQX1Y8gDJcqpsF$897ec49aa2a296fec2473c4e325fd63d1aa5558cec273e308a96fa30bedb807e",
-    "username": "sandro"
+    "user_data": [
+        {
+            "email": "schweiss.sandro@hotmail.de",
+            "username": "sandro",
+            "password": "sha256$Ju0bXyoN0BU1CfW0$7adc5271bb5f244a3e2a2bcb1b92c61a4fcf722f100015177f4b6be446fd6b13"
+        }
+    ],
+    "habit_data": [
+        {
+            "task": "yes",
+            "periodicity": "1"
+        },
+        {
+            "task": "yes2",
+            "periodicity": "2"
+        },
+        {
+            "task": "yes3",
+            "periodicity": "2"
+        },
+        {
+            "task": "yes4",
+            "periodicity": "3"
+        },
+        {
+            "task": "yes5",
+            "periodicity": "1"
+        },
+        {
+            "task": "yes6",
+            "periodicity": "1"
+        },
+        {
+            "task": "yes7",
+            "periodicity": "3"
+        }
+    ]
 }

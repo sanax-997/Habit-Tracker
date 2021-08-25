@@ -3,6 +3,7 @@
 from flask import Blueprint, render_template, request, flash, json, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from HabitManagement import settings
+from .habits import Habit
 from os import path, listdir
 
 auth = Blueprint('auth', __name__)
@@ -14,12 +15,20 @@ def login():
         password = request.form.get('password')
 
         if path.isfile(f"./Data/{username}.json"):
-            with open(f"Data/{username}.json", "r") as user_data:
-                data = json.loads(user_data.read())
+            with open(f"Data/{username}.json", "r") as file:
+                user_json = json.loads(file.read())
 
-            if check_password_hash(data["password"], password):
+            json_password = user_json['user_data'][0]['password']
+
+            if check_password_hash(json_password, password):
                 flash('Loged in successfully', category="success")
                 settings.login_status = True
+                settings.current_user = username
+
+                for habit_data in user_json['habit_data']:
+                    for task, periodicity in habit_data['task'] and habit_data['periodicity']:
+                        new_habit = Habit(task, periodicity)
+
                 return redirect(url_for('views.home'))
             else:
                 flash('The password is wrong!', category="error")
@@ -43,11 +52,13 @@ def register():
         password2 = request.form.get('password2')
 
         def registration(*args, **kwargs):
+            user_json = {"user_data" : [], "habit_data" : []}
             registration_data = {"email" : email, "username": username, "password" : generate_password_hash(password1, method='sha256')}
-            jsonStr = json.dumps(registration_data, indent = 4)
+            user_json['user_data'].append(registration_data)
+            jsonStr = json.dumps(user_json, indent = 4, sort_keys = False)
 
-            with open(f"Data/{username}.json", "w") as user_data:
-                user_data.write(jsonStr)      
+            with open(f"Data/{username}.json", "w") as file:
+                file.write(jsonStr)      
 
         if len(email) < 4:
             flash('Email must be greater than 3 characters!', category="error")
@@ -74,12 +85,14 @@ def register():
                         flash('Account created!', category="success")
                         registration(email, username, password1)
                         settings.login_status = True
+                        settings.current_user = username
                         return redirect(url_for('views.home'))
                         
         else:
             flash('Account created!', category="success")
             registration(email, username, password1)
             settings.login_status = True
+            settings.current_user = username
             return redirect(url_for('views.home'))
             
     return  render_template("register.html")

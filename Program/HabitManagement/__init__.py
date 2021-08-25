@@ -14,11 +14,13 @@ def create_app():
     from .views import views
     from .auth import auth
     from HabitManagement import settings
+    from .habits import Habit
 
     #This code registers the blueprints, with a specified URL prefix
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
     settings.init_login_status()
+    Habit.list_of_habits.clear()
 
     return app
