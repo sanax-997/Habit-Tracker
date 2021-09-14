@@ -1,34 +1,85 @@
+<!--- html content for the views.habits route--->
+
+<!--- Extends the base template to this file and changes the page name--->
 {% extends "base.html" %} {% block title %}Habits{% endblock %}
 
+<!--- Content of the html page--->
 {% block content%}
 <form method="POST">
-    <h1 align ="center">Manage your Habits</h1>
+    <h1 align="center">Manage your Habits</h1>
     <br />
-    <h3 align ="left">Create a Habit</h3>
-    <div class ="form-group">
+    <!--- Manages the html for Create a habit--->
+    <h3 align="left">Create a Habit</h3>
+    <!--- Creates form "task" for user input--->
+    <div class="form-group">
         <label for="task">Task</label>
-        <input 
-            type="task" 
-            class="form-control" 
-            id="task" 
-            name="task" 
-            placeholder="Enter a task"
-        />
+        <input type="task" class="form-control" id="task" name="task" placeholder="Enter a task" />
     </div>
-    <div class ="form-group">
+    <!--- Creates form "periodicity" for user input--->
+    <div class="form-group">
         <label for="periodicity">Periodicity in days</label>
-        <input 
-            type="periodicity" 
-            class="form-control" 
-            id="periodicity" 
-            name="periodicity" 
-            placeholder="Enter a periodicity"
-        />
+        <input type="periodicity" class="form-control" id="periodicity" name="periodicity"
+            placeholder="Enter a periodicity" />
     </div>
     <br />
-    <button type ="create" class="btn btn-primary">Create</button>
+    <!--- Creates a button for user confirmation--->
+    <button type="create" class="btn btn-primary">Create</button>
     <br />
     <br />
-    <h3 align ="left">List of your Habits</h3>
+    <!--- Manages the html for List of your habits--->
+    <h3 align="left">List of your Habits</h3>
+    <!--- Checks the returned variable from views.analytics--->
+    <!--- Generates a table--->
+    {% if habit_data %}
+    <table class="table table-bordered">
+        <!--- Iterates through the list and fills the defined columns--->
+        <tr>
+            <th>
+                <center>Task</center>
+            </th>
+            <th>
+                <center>Periodicity</center>
+            </th>
+            <th>
+                <center>Last checked</center>
+            </th>
+            <th>
+                <center>Current Streak</center>
+            </th>
+            <th>
+                <center>Check</center>
+            </th>
+            <th>
+                <center>Delete</center>
+            </th>
+        </tr>
+        {% for dict_item in habit_data %}
+        <tr>
+            <td>
+                <center>{{dict_item['task']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['periodicity']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['last_checked']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['streak']}}</center>
+            </td>
+            <td>
+                <!--- Creates a "Check" button, which when pressed, passes the ulr and the task of the same row to views.check--->
+                <center><a class="btn btn-primary"
+                        href="{{ url_for('views.check', task = dict_item['task']) }}">Check</a></center>
+            </td>
+            <td>
+                <!--- Creates a "Delete" button, which when pressed, passes the the ulr and the task of the same row to views.delete--->
+                <center><a class="btn btn-primary"
+                        href="{{ url_for('views.delete', task = dict_item['task']) }}">Delete</a></center>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
 </form>
 {% endblock %}

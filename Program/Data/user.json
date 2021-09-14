@@ -1,0 +1,46 @@
+{
+    "user_data": [
+        {
+            "email": "user@hotmail.com",
+            "username": "user",
+            "password": "sha256$tNW7Nir0o8PKy8d0$4d02b896c6b8b4d7747ab4bb0742f40f1833ecd25c6b09023d017e8b84e24dce"
+        }
+    ],
+    "habit_data": [
+        {
+            "task": "washing the dishes",
+            "periodicity": "1",
+            "last_checked": "10/09/2021",
+            "longest_streak": 15,
+            "streak": 11
+        },
+        {
+            "task": "cleaning my room",
+            "periodicity": "7",
+            "last_checked": "10/09/2021",
+            "longest_streak": 6,
+            "streak": 3
+        },
+        {
+            "task": "working out",
+            "periodicity": "2",
+            "last_checked": "08/09/2021",
+            "longest_streak": 20,
+            "streak": 20
+        },
+        {
+            "task": "walking the dog",
+            "periodicity": "1",
+            "last_checked": "09/09/2021",
+            "longest_streak": 11,
+            "streak": 7
+        },
+        {
+            "task": "work on project",
+            "periodicity": "3",
+            "last_checked": "09/09/2021",
+            "longest_streak": 5,
+            "streak": 1
+        }
+    ]
+}

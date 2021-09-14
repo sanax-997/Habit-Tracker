@@ -1,29 +1,24 @@
+<!--- html content for the views.login route--->
+
+<!--- Extends the base template to this file and changes the page name--->
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 
 {% block content%}
 <form method="POST">
-    <h3 align ="center">Login</h3>
-    <div class ="form-group">
+    <!--- Manages the html for Login--->
+    <h3 align="center">Login</h3>
+    <!--- Creates form "username" for user input--->
+    <div class="form-group">
         <label for="username">Username</label>
-        <input 
-            type="username" 
-            class="form-control" 
-            id="username" 
-            name="username" 
-            placeholder="Enter username"
-        />
+        <input type="username" class="form-control" id="username" name="username" placeholder="Enter username" />
     </div>
-    <div class ="form-group">
+    <!--- Creates form "password" for user input--->
+    <div class="form-group">
         <label for="password">Password</label>
-        <input 
-            type="password" 
-            class="form-control" 
-            id="password" 
-            name="password" 
-            placeholder="Enter password"
-        />
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" />
     </div>
     <br />
-    <button type ="login" class="btn btn-primary">Login</button>
+    <!--- Creates a button for user confirmation--->
+    <button type="login" class="btn btn-primary">Login</button>
 </form>
 {% endblock %}

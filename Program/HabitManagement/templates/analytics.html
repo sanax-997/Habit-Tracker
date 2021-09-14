@@ -1,1 +1,124 @@
+<!--- html content for the views.analytics route--->
+
+<!--- Extends the base template to this file and changes the page name--->
 {% extends "base.html" %} {% block title %}Analytics{% endblock %}
+
+<!--- Content of the html page--->
+{% block content%}
+<h1 align="center">Analyse your Habits</h1>
+<br />
+<!--- Manages the html for habits with same peridocity--->
+<h3 align="left">Habits with same periodicity</h3>
+<form method="POST">
+    <!--- Creates form "periodicity" for user input--->
+    <label for="periodicity">Periodicity</label>
+    <input type="periodicity" class="form-control" id="periodicity" name="periodicity"
+        placeholder="Enter a periodicity" />
+    <br />
+    <!--- Checks the returned variable from views.analytics--->
+    <!--- Generates a table--->
+    {% if list_periodicity_html %}
+    <table class="table table-bordered">
+        <!--- Iterates through the list and fills the defined columns--->
+        <tr>
+            <th>
+                <center>Task</center>
+            </th>
+            <th>
+                <center>Last checked</center>
+            </th>
+            <th>
+                <center>Current Streak</center>
+            </th>
+        </tr>
+        {% for dict_item in list_periodicity_html %}
+        <tr>
+            <td>
+                <center>{{dict_item['task']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['last_checked']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['streak']}}</center>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+    <br />
+    <!--- Manages the html for longest run streak--->
+    <h3 align="left">Longest run streak</h3>
+    <!--- Checks the returned variable from views.analytics--->
+    <!--- Generates a table--->
+    {% if list_longest_streak_html %}
+    <table class="table table-bordered">
+        <!--- Iterates through the list and fills the defined columns--->
+        <tr>
+            <th>
+                <center>Task</center>
+            </th>
+            <th>
+                <center>Current streak</center>
+            </th>
+            <th>
+                <center>Longest streak</center>
+            </th>
+        </tr>
+        {% for dict_item in list_longest_streak_html %}
+        <tr>
+            <td>
+                <center>{{dict_item['task']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['streak']}}</center>
+            </td>
+            <td>
+                <center>{{dict_item['longest_streak']}}</center>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</form>
+<br />
+<!--- Manages the html for longest streak of a task--->
+<h3 align="left">Longest streak of a task</h3>
+<form method="POST">
+    <!--- Creates form "task" for user input--->
+    <label for="task">Task</label>
+    <input type="task" class="form-control" id="task" name="task" placeholder="Enter a task" />
+    <br />
+    <!--- Checks the returned variable from views.analytics--->
+    <!--- Generates a table--->
+    {% if list_longest_streak_task_html %}
+    <table class="table table-bordered">
+        <!--- Iterates through the list and fills the defined columns--->
+        <tr>
+            <th>
+                <center>Task</center>
+            </th>
+            <th>
+                <center>Current Streak</center>
+            </th>
+            <th>
+                <center>Longest Streak</center>
+            </th>
+        </tr>
+        {% for dict_item in list_longest_streak_task_html %}
+        <td>
+            <center>{{dict_item['task']}}</center>
+        </td>
+        <td>
+            <center>{{dict_item['streak']}}</center>
+        </td>
+        <td>
+            <center>{{dict_item['longest_streak']}}</center>
+        </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</form>
+</div>
+{% endblock %}
