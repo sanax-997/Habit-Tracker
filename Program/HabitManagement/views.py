@@ -61,12 +61,17 @@ def login():
 
 @views.route('/logout')
 def logout():
-    """Handles the logout of a user"""
-    # Sets the login status of a user to false (logged out)
-    g.habit.login_status = False
+    # Checks for the login status
+    if g.habit.login_status == False:
+        flash('Please login to access this page', category="error")
+        return redirect(url_for('views.login'))
+    else:
+        """Handles the logout of a user"""
+        # Sets the login status of a user to false (logged out)
+        g.habit.login_status = False
 
-    # Redirects the user to the views.login route
-    return redirect(url_for('views.login'))
+        # Redirects the user to the views.login route
+        return redirect(url_for('views.login'))
 
 
 @views.route('/register', methods=['GET', 'POST'])
@@ -171,89 +176,109 @@ def home():
 @views.route('/analytics', methods=['GET', 'POST'])
 def analytics():
     """Manages the analytics page"""
-    # Calls longest_streak_all from analytics and assigns it
-    list_longest_streak = longest_streak_all()
+    # Checks for the login status
+    if g.habit.login_status == False:
+        flash('Please login to access this page', category="error")
+        return redirect(url_for('views.login'))
+    else:
+        # Calls longest_streak_all from analytics and assigns it
+        list_longest_streak = longest_streak_all()
 
-    # Creates empty lists as placeholders
-    list_periodicity = []
-    list_longest_streak_task = []
+        # Creates empty lists as placeholders
+        list_periodicity = []
+        list_longest_streak_task = []
 
-    # Checks if the request was a POST method
-    if request.method == 'POST':
-        # Checks if the "periodicity" form was sent
-        if request.form.get('periodicity'):
-            # Stores the user input of the periodicity and calls the function from the analytics module
-            periodicity = request.form.get('periodicity')
-            list_periodicity = same_periodicity(periodicity)
+        # Checks if the request was a POST method
+        if request.method == 'POST':
+            # Checks if the "periodicity" form was sent
+            if request.form.get('periodicity'):
+                # Stores the user input of the periodicity and calls the function from the analytics module
+                periodicity = request.form.get('periodicity')
+                list_periodicity = same_periodicity(periodicity)
 
-        # Checks if the "task" form was sent
-        if request.form.get('task'):
-            # Stores the user input of the task and calls the function from the analytics module
-            task = request.form.get('task')
-            list_longest_streak_task = longest_streak_task(task)
+            # Checks if the "task" form was sent
+            if request.form.get('task'):
+                # Stores the user input of the task and calls the function from the analytics module
+                task = request.form.get('task')
+                list_longest_streak_task = longest_streak_task(task)
 
-    # Renders the html of analytics.html in the templates folder and passes variables to the html file
-    return render_template("analytics.html", login_status=g.habit.login_status, list_periodicity_html=list_periodicity, list_longest_streak_html=list_longest_streak, list_longest_streak_task_html=list_longest_streak_task)
+        # Renders the html of analytics.html in the templates folder and passes variables to the html file
+        return render_template("analytics.html", login_status=g.habit.login_status, list_periodicity_html=list_periodicity, list_longest_streak_html=list_longest_streak, list_longest_streak_task_html=list_longest_streak_task)
 
 
 @views.route('/habits', methods=['GET', 'POST'])
 def habits():
     """Manages the habits page"""
-    # Checks if the request was a POST method
-    if request.method == 'POST':
-        # Stores the user input of the form
-        task = request.form.get('task')
-        periodicity = request.form.get('periodicity')
+    # Checks for the login status
+    if g.habit.login_status == False:
+        flash('Please login to access this page', category="error")
+        return redirect(url_for('views.login'))
+    else:
+        # Checks if the request was a POST method
+        if request.method == 'POST':
+            # Stores the user input of the form
+            task = request.form.get('task')
+            periodicity = request.form.get('periodicity')
 
-        # Checks if the task field is empty
-        if len(task) < 1:
-            flash('The task field cannot be empty', category="error")
+            # Checks if the task field is empty
+            if len(task) < 1:
+                flash('The task field cannot be empty', category="error")
 
-        # Checks if the periodicity field is empty
-        elif len(periodicity) < 1:
-            flash('The periodicity field cannot be empty', category="error")
+            # Checks if the periodicity field is empty
+            elif len(periodicity) < 1:
+                flash('The periodicity field cannot be empty', category="error")
 
-        # Checks if the periodicity is a number
-        elif not(periodicity.isnumeric()):
-            flash('The periodicity must a number', category="error")
+            # Checks if the periodicity is a number
+            elif not(periodicity.isnumeric()):
+                flash('The periodicity must a number', category="error")
 
-        # Checks if the task/habit already exists
-        elif any(habit_data['task'] == task for habit_data in g.habit.habit_data):
-            flash('The habit already exsists!', category="error")
+            # Checks if the task/habit already exists
+            elif any(habit_data['task'] == task for habit_data in g.habit.habit_data):
+                flash('The habit already exsists!', category="error")
 
-        # If all requirements are met a hbait is created
-        else:
-            # Calls the create_habit function from habit and passes the form
-            # Data is then saved onto the .json file
-            today = date.today()
-            g.habit.create_habit({'task': task, 'periodicity': periodicity, 'last_checked': today.strftime(
-                "%d/%m/%Y"), 'longest_streak': 0, 'streak': 0})
-            g.habit.save_data()
-            flash('Habit created!', category="success")
+            # If all requirements are met a hbait is created
+            else:
+                # Calls the create_habit function from habit and passes the form
+                # Data is then saved onto the .json file
+                today = date.today()
+                g.habit.create_habit({'task': task, 'periodicity': periodicity, 'last_checked': today.strftime(
+                    "%d/%m/%Y"), 'longest_streak': 0, 'streak': 0})
+                g.habit.save_data()
+                flash('Habit created!', category="success")
 
-    # Renders the html of habits.html in the templates folder and passes variables to the html file
-    return render_template("habits.html", login_status=g.habit.login_status, habit_data=g.habit.habit_data)
+        # Renders the html of habits.html in the templates folder and passes variables to the html file
+        return render_template("habits.html", login_status=g.habit.login_status, habit_data=g.habit.habit_data)
 
 
 @views.route("/delete/<task>")
 def delete(task):
-    """Manages the deletion of a habit"""
-    # Parses the html string and passes the task into the delete_habit function
-    # Data is then saved onto the .json file
-    g.habit.delete_habit(task)
-    g.habit.save_data()
+    # Checks for the login status
+    if g.habit.login_status == False:
+        flash('Please login to access this page', category="error")
+        return redirect(url_for('views.login'))
+    else:
+        """Manages the deletion of a habit"""
+        # Parses the html string and passes the task into the delete_habit function
+        # Data is then saved onto the .json file
+        g.habit.delete_habit(task)
+        g.habit.save_data()
 
-    # Redirects the user to the views.habits route
-    return redirect(url_for('views.habits'))
+        # Redirects the user to the views.habits route
+        return redirect(url_for('views.habits'))
 
 
 @views.route("/check/<task>")
 def check(task):
-    """Manages the check of a habit"""
-    # Parses the html string and passes the task into the check_habit function
-    # Data is then saved onto the .json file
-    g.habit.check_habit(task)
-    g.habit.save_data()
+    # Checks for the login status
+    if g.habit.login_status == False:
+        flash('Please login to access this page', category="error")
+        return redirect(url_for('views.login'))
+    else:
+        """Manages the check of a habit"""
+        # Parses the html string and passes the task into the check_habit function
+        # Data is then saved onto the .json file
+        g.habit.check_habit(task)
+        g.habit.save_data()
 
-    # Redirects the user to the views.habits route
-    return redirect(url_for('views.habits'))
+        # Redirects the user to the views.habits route
+        return redirect(url_for('views.habits'))
