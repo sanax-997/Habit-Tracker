@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 flask = "*"
 selenium = "*"
-flask-testing = "*"
 
 [dev-packages]
 
