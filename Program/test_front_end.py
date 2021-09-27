@@ -21,6 +21,8 @@ class TestBase(unittest.TestCase):
         # Creates an instance of the webdriver wiht the Chrom webdriver located in the program directory
         self.driver = webdriver.Chrome(
             "chromedriver.exe")
+        # Settings for the Chrome Driver to start maximized
+        self.driver.maximize_window()
         # The domain of the localhost server is retrieved
         self.driver.get("http://127.0.0.1:5000/")
 
