@@ -35,3 +35,6 @@ Usage details are listed in the "Habit Tracker - Manual"
 ## Dependencies
 - flask
 - selenium
+
+## License
+GPL-3.0 License
