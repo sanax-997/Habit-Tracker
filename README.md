@@ -20,7 +20,7 @@
 ## Installation
 1. Download the application from Github and extract the contents
 2. If you do not have `pipenv` already installed. Open a code command prompt or terminal in the extracted folder and install `pipenv` with the command `pip install pipenv`
-3. Then execute the command `pipenv install`. This installs all the dependencies needed for the program.
+3. Then execute the command `pipenv install`. This installs all the dependencies needed for the program
 4. Execute the command `pipenv shell` to open a new virtual environment
 5. Change the directory to `Program` with the command `cd Program`
 6. Execute the command `py bridge.py` to run the application
