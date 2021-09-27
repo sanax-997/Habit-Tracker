@@ -8,4 +8,4 @@ app = create_app()
 # If this is the main file of the program the code is executed
 if __name__ == "__main__":
     # Runs the webserver
-    app.run(debug=True)
+    app.run()
