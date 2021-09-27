@@ -19,11 +19,11 @@
 
 ## Installation
 1.	Download of the application from Github and extract the contents
-2.	Install pipenv with the command pip install pipenv
-3.	Open a code command prompt in the extracted folder and execute the command pipenv install. This installs all the dependencies needed for the program.
-4.	Execute the command pipenv shell to open a new virtual environemt
+2.	Install `pipenv` with the command `pip install pipenv`
+3.	Open a code command prompt in the extracted folder and execute the command `pipenv install`. This installs all the dependencies needed for the program.
+4.	Execute the command `pipenv shell` to open a new virtual environemt
 5.	Change the directory to “Program” with the command cd Program
-6.	Execute the command py bridge.py to run the application
+6.	Execute the command `py bridge.py` to run the application
 
 ## Usage
 Usage details are listed in the "Habit Tracker - Manual"
