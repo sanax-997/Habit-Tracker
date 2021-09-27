@@ -4,11 +4,6 @@ import unittest
 
 class TestViews(unittest.TestCase):
 
-    def setUp(self):
-        app.config['TESTING'] = True
-        app.config['DEBUG'] = False
-        self.app = app.test_client()
-
     def test_home(self):
         """
         Test that views.home is accessible without login
@@ -74,4 +69,5 @@ class TestViews(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    app.config['TESTING'] = True
     unittest.main()

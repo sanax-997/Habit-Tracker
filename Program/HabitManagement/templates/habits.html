@@ -23,7 +23,7 @@
     </div>
     <br />
     <!--- Creates a button for user confirmation--->
-    <button type="create" class="btn btn-primary">Create</button>
+    <button id="create" type="create" class="btn btn-primary">Create</button>
     <br />
     <br />
     <!--- Manages the html for List of your habits--->
@@ -69,12 +69,12 @@
             </td>
             <td>
                 <!--- Creates a "Check" button, which when pressed, passes the ulr and the task of the same row to views.check--->
-                <center><a class="btn btn-primary"
+                <center><a id= "check" class="btn btn-primary"
                         href="{{ url_for('views.check', task = dict_item['task']) }}">Check</a></center>
             </td>
             <td>
                 <!--- Creates a "Delete" button, which when pressed, passes the the ulr and the task of the same row to views.delete--->
-                <center><a class="btn btn-primary"
+                <center><a id= "delete" class="btn btn-primary"
                         href="{{ url_for('views.delete', task = dict_item['task']) }}">Delete</a></center>
             </td>
         </tr>

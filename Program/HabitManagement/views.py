@@ -40,7 +40,7 @@ def login():
                 g.habit.load_data(username)
 
                 # Flashes a success message to the user
-                flash('Loged in successfully', category="success")
+                flash('Logged in successfully', category="success")
 
                 # Redirects the user to the views.home route
                 return redirect(url_for('views.home'))
@@ -95,19 +95,19 @@ def register():
                                  "password": generate_password_hash(password1, method='sha256')}
             # Appends registration_data to the user_json, user_data dictionary list
             user_json['user_data'].append(registration_data)
-            # The data from user_json is then formatted with json.dumps and stored in jsonStr
-            jsonStr = json.dumps(user_json, indent=4, sort_keys=False)
+            # The data from user_json is then formatted with json.dumps and stored in json_str
+            json_str = json.dumps(user_json, indent=4, sort_keys=False)
 
-            # Context manager opens the .json file and stores writes the jsonStr inside the file
+            # Context manager opens the .json file and stores writes the json_str inside the file
             with open(f"Data/{username}.json", "w") as file:
-                file.write(jsonStr)
+                file.write(json_str)
 
             # Sets the login status to true (logged in)
             g.habit.login_status = True
             # Loads the data from the .json file in the habit object
             g.habit.load_data(username)
 
-        # Checks if the email is at least 3 characters
+        # Checks if the email is at least 4 characters
         if len(email) < 4:
             # Flashes an error message to the user
             flash('Email must be greater than 3 characters!', category="error")
@@ -122,7 +122,7 @@ def register():
             # Flashes an error message to the user
             flash('The passwords do not match!', category="error")
 
-        # Checks if the password is greater than 3 characters
+        # Checks if the password is greater than 4 characters
         elif len(password1) < 4:
             # Flashes an error message to the user
             flash('The password must be greater than 3 characters!', category="error")
