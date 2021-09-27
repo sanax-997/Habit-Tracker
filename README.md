@@ -1,7 +1,7 @@
-# Habit-Tracker: Habit Tracker web application
+# Habit-Tracker: Habit Tracker Web Application
 
 ## Overview
-“Habit Tracker “ is a web application, which allows a user to manage and analyze their self-defined habits with a specific periodicity. Since “Habit Tracker” is a web application, the program can be controlled through a GUI (Graphical User Interface) on a webbrowser. The webbrowser exposes the functionality of the program through html and css. The data is stored locally on a .json file, which is named automatically after the respective username.
+‘Habit Tracker‘ is a web application, which allows a user to manage and analyze their self-defined habits with a specific periodicity. Since ‘Habit Tracker’ is a web application, the program can be controlled through a GUI (Graphical User Interface) on a web browser. The web browser exposes the functionality of the program through HTML and CSS. The data is stored locally on a .json file, which is named automatically after the respective username.
 
 ## Features
 - Registration system
