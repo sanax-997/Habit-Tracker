@@ -10,35 +10,35 @@
         {
             "task": "washing the dishes",
             "periodicity": "1",
-            "last_checked": "27/09/2021",
+            "last_checked": "13/10/2021",
             "longest_streak": 50,
             "streak": 35
         },
         {
             "task": "cleaning my room",
             "periodicity": "7",
-            "last_checked": "27/09/2021",
+            "last_checked": "13/10/2021",
             "longest_streak": 6,
             "streak": 4
         },
         {
             "task": "working out",
             "periodicity": "2",
-            "last_checked": "27/09/2021",
+            "last_checked": "13/10/2021",
             "longest_streak": 20,
             "streak": 20
         },
         {
             "task": "walking the dog",
             "periodicity": "1",
-            "last_checked": "27/09/2021",
+            "last_checked": "13/10/2021",
             "longest_streak": 45,
             "streak": 40
         },
         {
             "task": "work on project",
             "periodicity": "3",
-            "last_checked": "27/09/2021",
+            "last_checked": "13/10/2021",
             "longest_streak": 15,
             "streak": 11
         }
